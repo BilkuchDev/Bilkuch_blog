@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ug" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none';" />
+  <title>بىلكۈچ تېخنىكا بىلوگى — Bilküch Enterprise Tech Blog</title>
+  <style>
+    :root {
+      --font-uyghur: 'UKIJ Tuz', 'ALKATIP Basma', 'Uyghur Pashto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+      --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+      --bg-primary: #090d16;
+      --bg-surface: rgba(17, 24, 39, 0.78);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border-hairline: rgba(148, 163, 184, 0.16);
+      --accent: #0ea5e9;
+      --accent-soft: rgba(14, 165, 233, 0.14);
+    }
+
+    html[data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-surface: rgba(255, 255, 255, 0.88);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-hairline: rgba(15, 23, 42, 0.12);
+      --accent: #0284c7;
+      --accent-soft: rgba(2, 132, 199, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      direction: rtl;
+      font-family: var(--font-uyghur);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 180ms cubic-bezier(0.16, 1, 0.3, 1), color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem;
+      transition: max-width 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 360px - 380px قىستۇرما كۆزنەك ئۆلچىمى */
+    body.popup-mode .app-shell {
+      width: 372px;
+      max-width: 380px;
+      min-width: 360px;
+      margin: 1rem auto;
+      border: 1px solid var(--border-hairline);
+      border-radius: 18px;
+      background: var(--bg-surface);
+      backdrop-filter: blur(20px);
+    }
+
+    header.topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1.25rem;
+      background: var(--bg-surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-uyghur);
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .nav-btn.active, .nav-btn:hover {
+      color: var(--text-primary);
+      background: var(--accent-soft);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      font-family: var(--font-uyghur);
+      font-size: 0.85rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-line {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* كۆپ قۇرلۇق ئۇيغۇرچە ئابزاسلارنىڭ مەجبۇرىي ئۆلچىمى */
+    .uyghur-prose p {
+      direction: rtl;
+      text-align: justify;
+      text-justify: inter-word;
+      text-indent: 1.75em;
+      line-height: 1.95;
+      margin-bottom: 1rem;
+    }
+
+    pre.code-block {
+      direction: ltr;
+      text-align: left;
+      font-family: var(--font-mono);
+      background: #050811;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.84rem;
+      margin: 1rem 0;
+      border: 1px solid var(--border-hairline);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a href="#top" class="brand">بىلكۈچ تېخنىكا بىلوگى</a>
+      <nav class="nav-links" aria-label="ئاساسىي تىزىملىك">
+        <button class="nav-btn active" onclick="filterCategory('all')">بارلىق ماقالىلەر</button>
+        <button class="nav-btn" onclick="filterCategory('ai')">سۈنئىي ئەقىل</button>
+        <button class="nav-btn" onclick="filterCategory('hardware')">يۇمشاق-قاتتىق دېتال</button>
+        <button class="nav-btn" onclick="filterCategory('books')">كىتابخانا</button>
+      </nav>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <button class="nav-btn" onclick="togglePopupWidth()" id="widthBtn">370px قىستۇرما ھالىتى</button>
+        <button class="btn-primary" onclick="toggleTheme()">تېما ئالماشتۇرۇش</button>
+      </div>
+    </header>
+    <main id="articlesContainer"></main>
+  </div>
+
+  <script>
+    const ARTICLES = [
+      {
+        id: 'a1',
+        cat: 'ai',
+        catLabel: 'سۈنئىي ئەقىل بىلىملىرى',
+        date: '2026-10-27',
+        title: 'يەرلىك سۈنئىي ئەقىل مودېللىرىنى تورسىز مۇھىتتا بىخەتەر ئىجرا قىلىش',
+        paragraphs: [
+          'بىسمىللاھىر رەھمانىر رەھىم. ھازىرقى زامان سۈنئىي ئەقىل تېخنىكىسىنىڭ يادروسى بولغان چوڭ تىل مودېللىرى ئىلىم-پەن تەتقىقاتى ۋە يۇمشاق دېتال ئېچىشتا زور ئۆزگىرىش پەيدا قىلدى. شەرقىي تۈركىستان تەتقىقاتچىلىرى ئۈچۈن شەخسىي سانلىق مەلۇماتلارنى سىرتقى مۇلازىمېتىرغا يوللىماي، ئۆز كومپيۇتېرىدا تورسىز ئىشلىتىش ئەڭ مۇھىم بىخەتەرلىك پرىنسىپىدۇر.',
+          'يەرلىك مۇھىتتا llama.cpp ۋە GGUF تېخنىكىسىنى ئىشلەتكەندە، بارلىق ھېسابلاش جەريانى ئۆز كومپيۇتېرىڭىزنىڭ ئىچكى ساقلىغۇچىدا تاماملىنىدۇ ھەمدە خىتاي ياكى باشقا تاشقى شىركەتلەرنىڭ API مۇلازىمەتلىرىگە قەتئىي تايانمايدۇ.'
+        ],
+        code: './llama-server --model ./models/uyghur-llm-q4.gguf --host 127.0.0.1 --port 8080 --log-disable'
+      },
+      {
+        id: 'a2',
+        cat: 'hardware',
+        catLabel: 'يۇمشاق ۋە قاتتىق دېتال',
+        date: '2026-10-24',
+        title: 'كومپيۇتېر قاتتىق دېتال بىخەتەرلىكى ۋە LUKS2 پۈتۈن دىسكا شىفىرلاش',
+        paragraphs: [
+          'بىر كومپيۇتېر سىستېمىسىنىڭ ھەقىقىي بىخەتەرلىكى قاتتىق دېتال قاتلىمىدىن باشلىنىدۇ. Linux مەشغۇلات سىستېمىسىدا Argon2id ئالگورىزىمىنى قوللانغان LUKS2 تولۇق دىسكا شىفىرلاش تېخنىكىسى قاتتىق دىسكىنى فىزىكىلىق ئوغرىلىنىش خەۋپىدىن تولۇق قوغدايدۇ.',
+          'خىتاي زاۋۇتلىرىنىڭ يېپىق مەنبەلىك فرمۋېر سىستېمىلىرىدىن يىراق تۇرۇپ، ئوچۇق مەنبەلىك Coreboot قوللايدىغان قاتتىق دېتاللارنى تاللاش تەۋسىيە قىلىنىدۇ.'
+        ],
+        code: 'cryptsetup luksFormat --type luks2 --cipher aes-xts-plain64 --key-size 512 --pbkdf argon2id /dev/nvme0n1p3'
+      }
+    ];
+
+    function renderArticles(filter) {
+      const container = document.getElementById('articlesContainer');
+      const list = filter === 'all' ? ARTICLES : ARTICLES.filter(a => a.cat === filter);
+      container.innerHTML = list.map(art => `
+        <article class="card uyghur-prose">
+          <div class="meta-line">${art.catLabel} · ${art.date} · نۆل ئىز قوغلاش ئۆلچىمى</div>
+          <h2>${art.title}</h2>
+          ${art.paragraphs.map(p => `<p>${p}</p>`).join('')}
+          ${art.code ? `<pre class="code-block"><code>${art.code}</code></pre>` : ''}
+        </article>
+      `).join('');
+    }
+
+    function filterCategory(cat) { renderArticles(cat); }
+    function toggleTheme() {
+      const root = document.documentElement;
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+    }
+    function togglePopupWidth() {
+      document.body.classList.toggle('popup-mode');
+      document.getElementById('widthBtn').textContent = document.body.classList.contains('popup-mode')
+        ? '1440px تولۇق ئېكران ھالىتى'
+        : '370px قىستۇرما ھالىتى';
+    }
+    renderArticles('all');
+  </script>
+</body>
+</html>
